@@ -17,6 +17,7 @@ non_decreasing(nums) -> False
 
 """
 
+
 def non_decreasing(nums):
 
     count = 0
@@ -28,10 +29,22 @@ def non_decreasing(nums):
             if (count > 1):
                 return False
 
+            # Decide whether it's safe to lower nums[i] or raise nums[i+1]
+            if i == 0 or nums[i - 1] <= nums[i + 1]:
+                nums[i] = nums[i + 1]      # lower nums[i]
+            else:
+                nums[i + 1] = nums[i]      # raise nums[i+1]
+
     return True
+
 
 nums1 = [4, 2, 3]
 print(non_decreasing(nums1))
 
 nums2 = [4, 2, 1]
 print(non_decreasing(nums2))
+
+print(non_decreasing([4, 2, 3]))     # True
+print(non_decreasing([4, 2, 1]))     # False
+# False (your original version wrongly gives True)
+print(non_decreasing([3, 4, 2, 3]))
